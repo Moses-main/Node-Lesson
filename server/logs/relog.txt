@@ -190,3 +190,14 @@
 2023-10-13	16:38:00	c3412a96-c409-4713-8f68-ad83a2239005	POST	undefined	/employee
 2023-10-13	16:38:40	2b98987b-9ff9-438b-9b80-062bc9f5e804	POST	undefined	/employee
 2023-10-13	16:39:37	f7178276-68a5-4240-bb72-a5e973bdfe92	POST	undefined	/employee
+2023-10-13	17:49:05	c77e8140-58db-43cd-9b3c-07e027f07f2c	PUT	undefined	/employee
+2023-10-13	17:49:24	84853bed-a228-4553-934d-f77bef369ffb	PUT	undefined	/employee
+2023-10-13	17:52:01	2b99545d-2369-44ba-af0f-8b46b85254f3	PUT	undefined	/employee
+2023-10-13	17:52:22	743db83a-a1d3-4938-b8c5-a048e3648ade	PUT	undefined	/employee
+2023-10-13	17:53:41	f0829114-2c35-474f-8e8b-0e73c767fa66	PUT	undefined	/employee
+2023-10-13	17:53:58	bfed1f35-9b9e-4dce-84b7-0da228436a32	PUT	undefined	/employee
+2023-10-13	17:54:33	6859ed5f-42d9-420e-931e-602b009ddb7b	PUT	undefined	/employee
+2023-10-13	17:55:14	11a53f91-7d89-42d2-b518-7753a29b208a	PUT	undefined	/employee
+2023-10-13	17:56:05	65421f62-14ca-45fb-bf3d-6b5bebc0e971	PUT	undefined	/employee
+2023-10-13	17:58:34	66da9881-0912-41ff-b9d0-bfd8c9fd21ad	DELETE	undefined	/employee
+2023-10-13	17:59:43	975d7d22-3394-4bca-a331-61fa60a32a42	GET	undefined	/employee/1

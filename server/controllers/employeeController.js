@@ -28,7 +28,7 @@ const createNewEmployee = (req, res) => {
 // Update employee
 const updateEmployee = (req, res) => {
   const employee = data.employees.find(
-    (emp) => emp.id === parseInt(req.body, id)
+    (emp) => emp.id === parseInt(req.body.id)
   );
 
   if (!employee) {
