@@ -21,11 +21,26 @@
   },
   {
     "id": 5,
+    "firstName": "Godfrey",
+    "lastName": "Sundauy"
+  },
+  {
+    "id": 6,
+    "firstName": "Miracle",
+    "lastName": "Okezie"
+  },
+  {
+    "id": 7,
+    "firstName": "Gloria",
+    "lastName": "Orji"
+  },
+  {
+    "id": 8,
     "firstName": "Anthony",
     "lastName": "Samuel"
   },
   {
-    "id": 6,
+    "id": 9,
     "firstName": "Chima",
     "lastName": "Sunday"
   }
