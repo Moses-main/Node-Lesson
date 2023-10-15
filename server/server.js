@@ -27,6 +27,12 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 
 // The route for the root repo
 app.use("/", require("./routes/root"));
+// route fo the registeration
+app.use("/register", require("./routes/register"));
+
+// // // route for the authentication
+app.use("/auth", require("./routes/auth"));
+
 // app.use("/subdir", require("./routes/subdir"));
 app.use("/employee", require("./routes/api/employee"));
 
