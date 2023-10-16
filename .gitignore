@@ -1,1 +1,3 @@
 server/logs/relog.txt
+.env
+node_modules

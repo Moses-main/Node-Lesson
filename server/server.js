@@ -5,6 +5,9 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOption");
 const { logger } = require("./middleware/logEvent");
 const errorHandler = require("./middleware/errorHandler");
+// const verifyJWT = require("./middleware/jwt");
+const verifyJWT = require("./middleware/verifyJWT");
+const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
@@ -17,8 +20,11 @@ app.use(cors(corsOptions));
 // i.e. forma data
 app.use(express.urlencoded({ extended: false }));
 
-// middleware for json data
+// middleware for json data.
 app.use(express.json());
+
+// middleware for cookie data
+app.use(cookieParser());
 
 // The middleware that handles static files
 // like styles, images and javascript
@@ -32,7 +38,8 @@ app.use("/register", require("./routes/register"));
 
 // // // route for the authentication
 app.use("/auth", require("./routes/auth"));
-
+app.use("/refresh", require("./routes/refresh"));
+app.use(verifyJWT);
 // app.use("/subdir", require("./routes/subdir"));
 app.use("/employee", require("./routes/api/employee"));
 
