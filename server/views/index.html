@@ -9,10 +9,27 @@
   <body id="body">
     <div class="App">
       <h1>Welcome to the Landing Page</h1>
-      <img src="../public/img/shared_screen.png" alt="display image" />
+      <!-- <img src="../public/img/shared_screen.png" alt="display image" /> -->
       <br />
       <br />
-      <button class="btn">Day Mode</button>
+      <form action="#" method="post" class="form-field">
+        <label for="username" class="label">
+          <input type="text" name="username" id="user" placeholder="Username" />
+        </label>
+
+        <label class="label" for="password">
+          <input
+            type="password"
+            name="password"
+            id="pwd"
+            placeholder="password"
+          />
+        </label>
+        <label for="button" class="label">
+          <button class="btn">Day Mode</button>
+          <button type="submit">Login</button>
+        </label>
+      </form>
     </div>
   </body>
 </html>

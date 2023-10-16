@@ -8,11 +8,15 @@ const errorHandler = require("./middleware/errorHandler");
 // const verifyJWT = require("./middleware/jwt");
 const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
+const credentials = require("./middleware/credentials");
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
 app.use(logger);
 
+// handle options credentials check before CORS
+// and fetch cookies credentials requirements
+app.use(credentials);
 // corsOptions()
 app.use(cors(corsOptions));
 
@@ -39,6 +43,7 @@ app.use("/register", require("./routes/register"));
 // // // route for the authentication
 app.use("/auth", require("./routes/auth"));
 app.use("/refresh", require("./routes/refresh"));
+app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);
 // app.use("/subdir", require("./routes/subdir"));
 app.use("/employee", require("./routes/api/employee"));
