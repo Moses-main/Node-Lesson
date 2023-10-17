@@ -154,3 +154,9 @@
 2023-10-16	20:24:55	1722fb4a-dc91-43ad-8de3-ab4986888fd7	GET	undefined	/css/style.css
 2023-10-16	20:24:55	36543403-7e8b-42d1-ae47-ddd8f376536f	GET	undefined	/favicon.ico
 2023-10-17	14:15:10	b3227e53-7e63-4176-9b4e-9fea76984073	POST	undefined	/auth
+2023-10-17	15:38:53	24314082-e6c0-43bf-9bd9-52d1cd9d324e	GET	undefined	/
+2023-10-17	15:38:53	8a37fe61-3fcd-4116-bff1-f38408f4895a	GET	undefined	/css/style.css
+2023-10-17	15:38:53	6e537fbd-772b-460c-8257-8ecdaf526500	GET	undefined	/favicon.ico
+2023-10-17	15:38:54	ae124611-c73b-438b-a2a3-e730e5f88422	GET	undefined	/
+2023-10-17	15:38:54	ef4c8fde-495c-4a54-b23e-28faa51ba645	GET	undefined	/css/style.css
+2023-10-17	15:38:54	1447e755-5bd2-410a-8b77-246db8fe1d77	GET	undefined	/favicon.ico

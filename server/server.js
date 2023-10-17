@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -5,14 +6,18 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOption");
 const { logger } = require("./middleware/logEvent");
 const errorHandler = require("./middleware/errorHandler");
-// const verifyJWT = require("./middleware/jwt");
 const verifyJWT = require("./middleware/verifyJWT");
 const cookieParser = require("cookie-parser");
 const credentials = require("./middleware/credentials");
+const mongoose = require("mongoose");
+const connectDB = require("./config/dbConn");
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
 app.use(logger);
+
+// connect to monngoDB
+connectDB();
 
 // handle options credentials check before CORS
 // and fetch cookies credentials requirements
@@ -60,6 +65,8 @@ app.all("/*", (req, res) => {
 });
 
 app.use(errorHandler);
-
-// The listener for the server
-app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  // The listener for the server
+  app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
+});
