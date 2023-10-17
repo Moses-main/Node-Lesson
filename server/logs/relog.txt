@@ -153,3 +153,4 @@
 2023-10-16	20:24:55	f79d5a62-64de-4cb3-9fe0-8cc02e3f9d4a	GET	undefined	/
 2023-10-16	20:24:55	1722fb4a-dc91-43ad-8de3-ab4986888fd7	GET	undefined	/css/style.css
 2023-10-16	20:24:55	36543403-7e8b-42d1-ae47-ddd8f376536f	GET	undefined	/favicon.ico
+2023-10-17	14:15:10	b3227e53-7e63-4176-9b4e-9fea76984073	POST	undefined	/auth
