@@ -1,0 +1,10 @@
+body {
+  width: 80%;
+  margin: auto;
+  text-align: justify;
+}
+
+#notFound {
+  color: red;
+  text-align: center;
+}
