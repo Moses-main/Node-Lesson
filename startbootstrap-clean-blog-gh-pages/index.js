@@ -1,12 +1,27 @@
 const express = require("express");
 const app = express();
-// const path = require("path");
+const path = require("path");
 
-// app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages/index.html"));
+  res.sendFile(path.join(__dirname, "pages", "/index.html"));
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "pages", "/about.html"));
+});
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "pages", "/contact.html"));
+});
+
+app.get("/index", (req, res) => {
+  res.sendFile(path.join(__dirname, "pages", "/index.html"));
+});
+
+app.get("/post", (req, res) => {
+  res.sendFile(path.join(__dirname, "pages", "/post.html"));
 });
 
 app.listen(4000, () => {
