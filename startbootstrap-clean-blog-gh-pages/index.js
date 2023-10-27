@@ -1,27 +1,42 @@
 const express = require("express");
 const app = express();
-const path = require("path");
+// const path = require("path");
+const ejs = require("ejs");
+const mongoose = require("mongoose");
+
+// mongoose.connect("mongodb://localhost/my_database", { useNewUrlParser: true }); //defining a connection
+
+app.set("view engine", "ejs"); // let express use the ejs for templating engine
 
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "/index.html"));
+  // res.sendFile(path.join(__dirname, "pages", "/index.html"));
+  res.render("index");
+});
+
+app.get("/home", (req, res) => {
+  res.render("home");
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "/about.html"));
+  // res.sendFile(path.join(__dirname, "pages", "/about.html"));
+  res.render("about");
 });
 
 app.get("/contact", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "/contact.html"));
+  // res.sendFile(path.join(__dirname, "pages", "/contact.html"));
+  res.render("contact");
 });
 
 app.get("/index", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "/index.html"));
+  // res.sendFile(path.join(__dirname, "pages", "/index.html"));
+  res.render("index");
 });
 
 app.get("/post", (req, res) => {
-  res.sendFile(path.join(__dirname, "pages", "/post.html"));
+  // res.sendFile(path.join(__dirname, "pages", "/post.html"));
+  res.render("post");
 });
 
 app.listen(4000, () => {
