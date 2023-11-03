@@ -17,7 +17,11 @@ app.get("/dis", async (req, res) => {
   console.log(blogposts);
 });
 
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/", (req, res) => {
   res.render("home");
 });
 
