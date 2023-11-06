@@ -6,16 +6,16 @@ const BlogPostSchema = new Schema({
   body: String,
 });
 
-const studentsSchema = new Schema({
-  name: String,
-  age: String,
-  dept: String,
-  reg_number: String,
-  faculty: String,
-  gender: String,
-});
+// const studentsSchema = new Schema({
+//   name: String,
+//   age: String,
+//   dept: String,
+//   reg_number: String,
+//   faculty: String,
+//   gender: String,
+// });
 
 const BlogPost = mongoose.model("BlogPost", BlogPostSchema);
-const Student = mongoose.model("Student", studentsSchema);
+// const Student = mongoose.model("Student", studentsSchema);
 
-module.exports = { BlogPost, Student };
+module.exports = { BlogPost };

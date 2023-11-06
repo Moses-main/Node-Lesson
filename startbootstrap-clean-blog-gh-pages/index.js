@@ -3,7 +3,7 @@ const app = express();
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const { BlogPost, Student } = require("./models/BlogPost");
+const validateMiddleware = require("./middleware/validationMiddleware");
 
 // The controllers
 const newPostController = require("./controllers/newPost");
@@ -11,6 +11,11 @@ const aboutController = require("./controllers/about");
 const contactController = require("./controllers/contact");
 const postController = require("./controllers/post");
 const indexController = require("./controllers/index");
+const homeController = require("./controllers/home");
+const storePostController = require("./controllers/storePost");
+const getPostController = require("./controllers/getPost");
+const newUserController = require("./controllers/newUser");
+const storeUserController = require("./controllers/storeUser");
 
 // Middleware for my apps
 app.use(bodyParser.json());
@@ -25,15 +30,9 @@ const customMiddleware = (req, res, next) => {
   next();
 };
 // This checks if the form fields are
-const validMiddleware = (req, res, next) => {
-  if (req.files == null || req.body.title == null || req.body.title == null) {
-    return res.redirect("/posts/new");
-  }
-  next();
-};
 
 app.use(customMiddleware);
-app.use("posts/store", validMiddleware);
+app.use("posts/store", validateMiddleware);
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -43,18 +42,20 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+// GET request
 app.get("/posts/new", newPostController);
 app.get("/about", aboutController);
 app.get("/contact", contactController);
 app.get("/post", postController);
 app.get("/index", indexController);
+app.get("/", homeController);
+app.get("/post/:id", getPostController);
+app.get("/post/store", storePostController);
+app.get("/auth/register", newUserController);
 
-app.post("/posts/:id", async (req, res) => {
-  await BlogPost.create(req.params.id);
-  res.render("create");
-});
+// POST request
+app.post("users/register", storeUserController);
 
-// server listening for changes made on app
 app.listen(4000, () => {
   console.log("listening on port 4000");
 });
