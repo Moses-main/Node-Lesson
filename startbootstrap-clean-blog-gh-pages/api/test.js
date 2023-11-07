@@ -14,21 +14,21 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-let BP = BlogPost.create({
-  title: "Third post",
-  body: "This is the Third blog post for for my project",
-});
+// let BP = BlogPost.create({
+//   title: "Third post",
+//   body: "This is the Third blog post for for my project",
+// });
 
-let cUser = User.create({
-  username: "Moses",
-  password: "12345",
-});
+// let cUser = User.create({
+//   username: "Moses",
+//   password: "12345",
+// });
 
-if (BP) {
-  console.log("blog post created successfully");
-}
-if (cUser) {
-  console.log("user created successfully");
-} else {
-  console.log("Oops Error");
-}
+// if (BP) {
+//   console.log("blog post created successfully");
+// }
+// if (cUser) {
+//   console.log("user created successfully");
+// } else {
+//   console.log("Oops Error");
+// }
