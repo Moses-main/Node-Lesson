@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const ejs = require("ejs");
+// const ejs = require("ejs");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const validateMiddleware = require("./middleware/validationMiddleware");
@@ -29,18 +29,10 @@ const customMiddleware = (req, res, next) => {
   console.log(`page shwoing ${req.url}`);
   next();
 };
-// This checks if the form fields are
 
+// This checks if the form fields are
 app.use(customMiddleware);
 app.use("posts/store", validateMiddleware);
-
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
-app.get("/", (req, res) => {
-  res.render("home");
-});
 
 // GET request
 app.get("/posts/new", newPostController);
@@ -52,9 +44,9 @@ app.get("/", homeController);
 app.get("/post/:id", getPostController);
 app.get("/post/store", storePostController);
 app.get("/auth/register", newUserController);
-
-// POST request
-app.post("users/register", storeUserController);
+// app.get(" /auth/register");
+// for submitting the new user registration details
+app.post("/submit", storeUserController);
 
 app.listen(4000, () => {
   console.log("listening on port 4000");

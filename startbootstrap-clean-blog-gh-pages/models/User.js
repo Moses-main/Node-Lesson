@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt");
 
-const UserSchema = new Schema({
+const dbURL = "mongodb://localhost/App";
+// connecting to the database
+mongoose.connect(dbURL);
+mongoose.connection;
+
+// create a mongooseModel
+const formModel = mongoose.model("registered", {
   username: {
     type: String,
     required: true,
@@ -14,15 +18,4 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre("save", function (next) {
-  const user = this;
-
-  bcrypt.hash(user.password, 10, (error, hash) => {
-    user.password = hash;
-    next();
-  });
-});
-
-// export model
-const User = mongoose.model("User", UserSchema);
-module.exports = { User };
+module.exports = formModel;

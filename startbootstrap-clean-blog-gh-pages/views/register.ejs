@@ -38,11 +38,8 @@
             <!-- Manually created form for the testing of the 
             POST AND GET request for the post and blog -->
             <form
-              action="/users/register"
-              id="contactForm"
-              data-sb-form-api-token="773f02d6-0a34-45ca-8f7b-790714f4d34a"
-              method="POST"
-            >
+              id="submitForm"
+              >
             <!-- The name of the user -->
               <div class="form-floating mb-3">
                 <input
@@ -85,10 +82,7 @@
               <div class="d-none" id="submitSuccessMessage">
                 <div class="text-center mb-3">
                   <div class="fw-bolder">Form submission successful!</div>
-                  <p>To activate this form, sign up at</p>
-                  <a href="https://startbootstrap.com/solution/contact-forms"
-                    >https://startbootstrap.com/solution/contact-forms</a
-                  >
+                  
                 </div>
               </div>
               <!-- Submit Error Message -->
@@ -101,6 +95,7 @@
                 <button
                   class="btn btn-primary btn-lg"
                   id="submitButton"
+                  onclick="submitForm()"
                   type="submit"
                 >
                   Register
@@ -110,5 +105,8 @@
           </div>
 
 </body>
-  <%- include('layouts/footer') %> <%- include('layouts/script') %>
+  <%- include('layouts/footer') %>
+  <%- include('layouts/script') %>
+  <!-- for registering new users -->
+  <%- include('layouts/register') %>  
 </html>
