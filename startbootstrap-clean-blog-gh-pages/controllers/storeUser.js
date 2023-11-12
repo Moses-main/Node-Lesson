@@ -1,21 +1,44 @@
+// const express = require("express");
+// const app = express();
+
+// app.use(express.static("public"));
+
+// const formModel = require("../models/User.js");
+// // const path = require("path");
+
+// module.exports = async (req, res) => {
+//   try {
+//     // create a new document with the submitted data
+//     const formEntry = formModel(req.body);
+//     // Save the document to the database
+//     await formEntry.save();
+
+//     res.status(200).send("form submitted successfully");
+//   } catch (error) {
+//     res.status(500).send("internal server error: " + error.message);
+//   }
+// };
 const express = require("express");
-const app = express();
+const router = express.Router();
+// const User = require("../models/userModel");
+const User = require("../models/User");
 
-const formModel = require("../models/User.js");
-const path = require("path");
+// Route for user sign-up form
+// router.get("/signup", (req, res) => {
+//   res.render("signupForm");
+// });
 
-app.use(express.static("public"));
-
-module.exports = async (req, res) => {
+// Route for handling user sign-up
+router.post("/signup", async (req, res) => {
   try {
-    // create a new document with the submitted data
-    const formEntry = new formModel(req.body);
-    // Save the document to the database
-    await formEntry.save();
-
-    res.status(200).send("form submitted successfully");
-    // res.sendFile(path.join(__dirname, "..", "about.ejs"));
+    const { username, password } = req.body;
+    const newUser = new User({ username, password });
+    await newUser.save();
+    res.status(201).json({ message: "User signed up successfully" });
   } catch (error) {
-    res.status(500).send("internal server error: " + error.message);
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-};
+});
+
+module.exports = router;

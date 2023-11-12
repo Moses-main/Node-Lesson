@@ -1,21 +1,17 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
+const dbURL = "mongodb://localhost/App";
 
-const BlogPostSchema = new Schema({
+// connecting to the database
+mongoose.connect(dbURL);
+mongoose.connection;
+
+const BlogPostSchema = new mongoose.Schema({
   title: String,
   body: String,
+  content: String,
+  timestamp: { type: Date, default: Date.now },
 });
 
-// const studentsSchema = new Schema({
-//   name: String,
-//   age: String,
-//   dept: String,
-//   reg_number: String,
-//   faculty: String,
-//   gender: String,
-// });
-
-const BlogPost = mongoose.model("BlogPost", BlogPostSchema);
-// const Student = mongoose.model("Student", studentsSchema);
-
-module.exports = { BlogPost };
+const BlogPost = new mongoose.model("BlogPost", BlogPostSchema);
+module.exports = BlogPost;

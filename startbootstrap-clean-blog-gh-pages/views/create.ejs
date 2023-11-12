@@ -33,8 +33,7 @@
               <!-- Manually created form for the testing of the 
               POST AND GET request for the post and blog -->
               <form
-                action="/posts/new"
-                id="contactForm"
+                id="postForm"
                 data-sb-form-api-token="773f02d6-0a34-45ca-8f7b-790714f4d34a"
                 method="POST"
               >
@@ -74,13 +73,7 @@
                   </div>
                 </div>
                 <div class="d-none" id="submitSuccessMessage">
-                  <div class="text-center mb-3">
-                    <div class="fw-bolder">Form submission successful!</div>
-                    <p>To activate this form, sign up at</p>
-                    <a href="https://startbootstrap.com/solution/contact-forms"
-                      >https://startbootstrap.com/solution/contact-forms</a
-                    >
-                  </div>
+                  <div class="text-center mb-3"></div>
                 </div>
                 <div class="d-none" id="submitErrorMessage">
                   <div class="text-center text-danger mb-3">
@@ -92,96 +85,14 @@
                     class="btn btn-primary btn-lg"
                     id="submitButton"
                     type="submit"
+                    onclick=" submitPost()"
                   >
-                    Submit
+                    Submit post
                   </button>
                 </div>
               </form>
             </div>
             <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
-            <!-- ============================================================================================= -->
-
-            <!-- <div class="my-5"> -->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- * * SB Forms Contact Form * *-->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- This form is pre-integrated with SB Forms.-->
-            <!-- To make this form functional, sign up at-->
-            <!-- https://startbootstrap.com/solution/contact-forms-->
-            <!-- to get an API token!-->
-            <!-- <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/post/store" METHOD="POST">
-                <div class="form-floating">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Title"
-                    data-sb-validations="required"
-                    type="text"
-                    name="title"
-                    aria-placeholder="Title"
-                    id="title"
-                  />
-                  <label for="title">Blog Title</label>
-                  <div
-                  
-                  class="invalid-feedback"
-                  data-sb-feedback="title:required"
-                  >
-                    A title is required.
-                  </div>
-                </div>
-                <div class="form-floating">
-                  <textarea
-                    class="form-control"
-                    id="body"
-                    name="body"
-                    placeholder="Enter your message here..."
-                    style="height: 12rem"
-                    data-sb-validations="required"
-                  ></textarea>
-                  <label for="body">Description</label>
-                  <div
-                    class="invalid-feedback"
-                    data-sb-feedback="body:required"
-                  >
-                    A body is required.
-                  </div>
-                </div>
-                <br /> -->
-            <!-- Submit success message-->
-            <!---->
-            <!-- This is what your users will see when the form-->
-            <!-- has successfully submitted-->
-            <!-- <div class="d-none" id="submitSuccessMessage">
-                  <div class="text-center mb-3">
-                    <div class="fw-bolder">Form submission successful!</div>
-                    To activate this form, sign up at
-                    <br />
-                    <a href="https://startbootstrap.com/solution/contact-forms"
-                      >https://startbootstrap.com/solution/contact-forms</a
-                    >
-                  </div>
-                </div> -->
-            <!-- Submit error message-->
-            <!---->
-            <!-- This is what your users will see when there is-->
-            <!-- an error submitting the form-->
-            <!-- <div class="d-none" id="submitErrorMessage">
-                  <div class="text-center text-danger mb-3">
-                    Error sending message!
-                  </div>
-                </div>
-                Submit Button -->
-            <!-- <button
-                  class="btn btn-primary text-uppercase disabled"
-                  id="submitButton"
-                  type="submit"
-                >
-                  Send
-                </button>
-              </form> -->
-            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -190,5 +101,5 @@
     <%-include('layouts/footer')-%>
     <!-- <footer class="border-top"> -->
   </body>
-  <%-include('layouts/script')-%>
+  <%-include('layouts/script')-%> <%- include("layouts/register") -%>
 </html>

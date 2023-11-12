@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 const dbURL = "mongodb://localhost/App";
+
 // connecting to the database
 mongoose.connect(dbURL);
 mongoose.connection;
-
-// create a mongooseModel
-const formModel = mongoose.model("registered", {
+// connection.on;
+const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -18,4 +18,24 @@ const formModel = mongoose.model("registered", {
   },
 });
 
+// middleware to hash the password before saving the user
+userSchema.pre("save", async function (next) {
+  try {
+    if (!this.isModified("password")) {
+      return next();
+    }
+    // Generate a salt
+    const salt = await bcrypt.genSalt(10);
+    // Hash the password useing the generated salt
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+
+    // replace the plain text password with the hashed one
+    this.password = hashedPassword;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+const formModel = mongoose.model("newUsers", userSchema);
 module.exports = formModel;

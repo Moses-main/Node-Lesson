@@ -14,8 +14,6 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-
-
 // let BP = BlogPost.create({
 //   title: "Third post",
 //   body: "This is the Third blog post for for my project",

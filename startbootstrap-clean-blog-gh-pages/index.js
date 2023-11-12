@@ -15,8 +15,11 @@ const homeController = require("./controllers/home");
 const storePostController = require("./controllers/storePost");
 const getPostController = require("./controllers/getPost");
 const newUserController = require("./controllers/newUser");
-const storeUserController = require("./controllers/storeUser");
+// const storeUserController = require("./controllers/storeUser");
+const loginController = require("./controllers/login");
+const userController = require("./controllers/storeUser"); // load route for storing controllers
 
+// const storeUserController = require("./controllers/storeUser");
 // Middleware for my apps
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,7 +35,8 @@ const customMiddleware = (req, res, next) => {
 
 // This checks if the form fields are
 app.use(customMiddleware);
-app.use("posts/store", validateMiddleware);
+// app.use("posts/store", validateMiddleware);
+app.use("/users", userController);
 
 // GET request
 app.get("/posts/new", newPostController);
@@ -44,9 +48,7 @@ app.get("/", homeController);
 app.get("/post/:id", getPostController);
 app.get("/post/store", storePostController);
 app.get("/auth/register", newUserController);
-// app.get(" /auth/register");
-// for submitting the new user registration details
-app.post("/submit", storeUserController);
+app.get("/auth/login", loginController);
 
 app.listen(4000, () => {
   console.log("listening on port 4000");
