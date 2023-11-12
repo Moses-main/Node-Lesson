@@ -15,7 +15,6 @@ const homeController = require("./controllers/home");
 const storePostController = require("./controllers/storePost");
 const getPostController = require("./controllers/getPost");
 const newUserController = require("./controllers/newUser");
-// const storeUserController = require("./controllers/storeUser");
 const loginController = require("./controllers/login");
 const userController = require("./controllers/storeUser"); // load route for storing controllers
 

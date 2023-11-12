@@ -32,6 +32,11 @@
           <p class="col-md-10 col-lg-8 col-xl-7">
             <h1 class="row gx-4 gx-lg-5 justify-content-center">
               Sign up to continue</h1>
+
+              <% if (errorMessage) { %>
+                <p class="row gx-4 gx-lg-5 justify-content-center" style="color: red;"><%= errorMessage %></p>
+              <% } %>
+            
             <!-- Register to get access to the page -->
           </p>
           <div class="container px-5 my-5">
@@ -100,7 +105,7 @@
               
                   type="submit"
                 >
-                  Register
+                  Sign Up
                 </button>
               </div>
             </form>

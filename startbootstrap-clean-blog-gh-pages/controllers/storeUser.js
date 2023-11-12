@@ -28,16 +28,23 @@ const User = require("../models/User");
 //   res.render("signupForm");
 // });
 
+// /users/signup
 // Route for handling user sign-up
 router.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
     const newUser = new User({ username, password });
     await newUser.save();
-    res.status(201).json({ message: "User signed up successfully" });
+    // redirect to log in page
+    res.redirect("users/login");
+    // res.status(201).json({ message: "User signed up successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    // render the signup page with the error message
+    res.render("register", {
+      errorMessage: "Registration failed. Please try again",
+    });
+    // res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
