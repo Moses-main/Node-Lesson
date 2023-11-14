@@ -1,34 +1,8 @@
-// const express = require("express");
-// const app = express();
-
-// app.use(express.static("public"));
-
-// const formModel = require("../models/User.js");
-// // const path = require("path");
-
-// module.exports = async (req, res) => {
-//   try {
-//     // create a new document with the submitted data
-//     const formEntry = formModel(req.body);
-//     // Save the document to the database
-//     await formEntry.save();
-
-//     res.status(200).send("form submitted successfully");
-//   } catch (error) {
-//     res.status(500).send("internal server error: " + error.message);
-//   }
-// };
 const express = require("express");
 const router = express.Router();
-// const User = require("../models/userModel");
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
-// Route for user sign-up form
-// router.get("/signup", (req, res) => {
-//   res.render("signupForm");
-// });
-
-// /users/signup
 // Route for handling user sign-up
 router.post("/signup", async (req, res) => {
   try {
@@ -36,15 +10,41 @@ router.post("/signup", async (req, res) => {
     const newUser = new User({ username, password });
     await newUser.save();
     // redirect to log in page
-    res.redirect("users/login");
+    res.redirect("/auth/login");
+    // res.status(200).send("success");
     // res.status(201).json({ message: "User signed up successfully" });
   } catch (error) {
     console.error(error);
     // render the signup page with the error message
     res.render("register", {
-      errorMessage: "Registration failed. Please try again",
+      errorMessage: "Oops! Something went wrong. Please try again",
     });
     // res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/users/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    // check if the user exits in the database
+    const user = await User.findOne({ username });
+    if (user) {
+      // compare the hashed password
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (isPasswordValid) {
+        // successfully logged in
+        res.redirect("/");
+      } else {
+        //failed login (incorrect password)
+        res.render("/auth/login");
+      }
+    } else {
+      //failed login (user not found)
+      res.render("/auth/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

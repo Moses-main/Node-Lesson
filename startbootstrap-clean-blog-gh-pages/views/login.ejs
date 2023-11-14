@@ -7,7 +7,7 @@
     </div>
 
     <%- include('layouts/navbar') -%>
-    <header class="masthead" style="background-image: url('/img/register-bg.jpg')">
+    <header class="masthead" style="background-image: url('/img/login.png')">
       <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
@@ -38,6 +38,7 @@
             <!-- Manually created form for the testing of the 
             POST AND GET request for the post and blog -->
             <form
+            method="POST"
             action="/users/login"
               id="submitForm"
               >

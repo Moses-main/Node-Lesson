@@ -3,7 +3,8 @@ const app = express();
 // const ejs = require("ejs");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const validateMiddleware = require("./middleware/validationMiddleware");
+// const validateMiddleware = require("./middleware/validationMiddleware");
+// const router = express.Router();
 
 // The controllers
 const newPostController = require("./controllers/newPost");
@@ -17,8 +18,8 @@ const getPostController = require("./controllers/getPost");
 const newUserController = require("./controllers/newUser");
 const loginController = require("./controllers/login");
 const userController = require("./controllers/storeUser"); // load route for storing controllers
+const loginUserController = require("./controllers/storeUser"); // load route for storing
 
-// const storeUserController = require("./controllers/storeUser");
 // Middleware for my apps
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,9 +47,12 @@ app.get("/index", indexController);
 app.get("/", homeController);
 app.get("/post/:id", getPostController);
 app.get("/post/store", storePostController);
-app.get("/auth/register", newUserController);
 app.get("/auth/login", loginController);
+app.get("/auth/register", newUserController);
 
+// Use the redirect route
+app.post("/users/login", loginUserController);
+//
 app.listen(4000, () => {
   console.log("listening on port 4000");
 });
