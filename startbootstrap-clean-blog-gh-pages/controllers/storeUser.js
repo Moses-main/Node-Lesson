@@ -2,13 +2,33 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+// const { errorMessage } = require("statuses");
 
 // Route for handling user sign-up
 router.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
+    // check if the user already exits in the database
+    const exitingUser = await User.findOne({ username });
+
+    if (exitingUser) {
+      //User already exits
+      // res.render("register", {
+      //   errorMessage: "Username already taken. Please try another",
+      // });
+      console.log("Username already taken. Please try another.");
+      // res
+      //   .status(201)
+      //   .json({ message: "Username already taken. Please try another" });
+
+      return;
+    }
+
+    //hash the password
+    const hashedPwd = await bcrypt.hash(password, 10);
     const newUser = new User({ username, password });
     await newUser.save();
+
     // redirect to log in page
     res.redirect("/auth/login");
     // res.status(200).send("success");
@@ -16,9 +36,10 @@ router.post("/signup", async (req, res) => {
   } catch (error) {
     console.error(error);
     // render the signup page with the error message
-    res.render("register", {
-      errorMessage: "Oops! Something went wrong. Please try again",
-    });
+    // res.render("register", {
+    //   errorMessage: "Oops! Something went wrong. Please try again",
+    // });
+    console.log("Oops! Something went wrong. Please try again.");
     // res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -36,11 +57,24 @@ router.post("/users/login", async (req, res) => {
         res.redirect("/");
       } else {
         //failed login (incorrect password)
-        res.render("/auth/login");
+        // res.render("login");
+        // res.json(errorMessage);
+        // res.render("register", {
+        //   errorMessage: "Incorrect Password",
+        // });
+        console.log("Error: Incorrect Password.");
+        // res.status(201).json({ message: "Incorrect Password, Try again" });
       }
     } else {
       //failed login (user not found)
-      res.render("/auth/login");
+      // res.render("login", {
+      //   errorMessage: "Username not found, Check the details and try again",
+      // });
+      console.log("Error: Username not found.");
+      // res.status(201).json({
+      //   message: "username not found, Check the details and try again",
+      // });
+      // res.render("login");
     }
   } catch (error) {
     console.error(error);
