@@ -25,26 +25,19 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
-            <p>
-              Want to get in touch? Fill out the form below to send me a message
-              and I will get back to you as soon as possible!
-            </p>
+            <p>Start by creating your own blog. Make it your own way</p>
             <div class="container px-5 my-5">
               <!-- Manually created form for the testing of the 
               POST AND GET request for the post and blog -->
-              <form
-                id="postForm"
-                data-sb-form-api-token="773f02d6-0a34-45ca-8f7b-790714f4d34a"
-                method="POST"
-              >
+              <form id="postForm" action="/create_post" method="POST">
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
                     id="title"
                     type="text"
-                    placeholder="Title"
+                    placeholder="title"
                     data-sb-validations="required"
-                    name="title"
+                    name="postTitle"
                   />
                   <label for="title">Title</label>
                   <div
@@ -57,7 +50,7 @@
                 <div class="form-floating mb-3">
                   <textarea
                     class="form-control"
-                    name="body"
+                    name="postContent"
                     id="body"
                     type="text"
                     placeholder="Body"
@@ -85,7 +78,6 @@
                     class="btn btn-primary btn-lg"
                     id="submitButton"
                     type="submit"
-                    onclick=" submitPost()"
                   >
                     Submit post
                   </button>
