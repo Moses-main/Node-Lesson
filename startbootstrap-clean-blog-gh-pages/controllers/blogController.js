@@ -75,12 +75,13 @@ exports.createPost = async (req, res) => {
         postTitle: postTitle,
         postContent: postContent,
       });
-      await newBlog.save();
-      // res.redirect("/");
-      return res.status(200).json({ message: "Blog created succesfully" });
-
-      // const newBlog = new BlogPost({ postTitle, postContent });
-      // await newBlog.save();
+      if (req.sessionID) {
+        await newBlog.save();
+        // res.redirect("/");
+        return res.status(200).json({ message: "Blog created succesfully" });
+      } else {
+        return res.status(200).json({ message: "Session Not Known" });
+      }
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

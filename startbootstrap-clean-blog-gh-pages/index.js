@@ -21,8 +21,11 @@ const loginController = require("./controllers/login");
 const userController = require("./controllers/storeUser"); // load route for storing controllers
 const loginUserController = require("./controllers/loginUser"); // load route for storing
 const dashboardController = require("./controllers/dashboard");
-
+// ,mddile ware
+const authMiddleware = require("./middleware/authMiddleware");
 // The new blogController
+const redirectIfAuthenticatedMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
+
 const newBlogController = require("./controllers/blogController");
 // Middleware for my apps
 
@@ -52,7 +55,7 @@ app.use("/users", userController);
 // app.use("./routes", routes);
 
 // GET request
-app.get("/posts/new", newPostController);
+app.get("/posts/new", authMiddleware, newPostController);
 app.get("/about", aboutController);
 app.get("/contact", contactController);
 app.get("/post", postController);
@@ -60,11 +63,15 @@ app.get("/index", indexController);
 app.get("/", homeController);
 // app.get("/post/:id", getPostController);
 // app.get("/post/store", storePostController);
-app.get("/auth/login", loginController);
-app.get("/auth/register", newUserController);
+app.get("/auth/login", redirectIfAuthenticatedMiddleware, loginController);
+app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController);
 app.get("/dashboard", dashboardController);
 // Use the redirect route
-app.post("/users/login", loginUserController);
+app.post(
+  "/users/login",
+  redirectIfAuthenticatedMiddleware,
+  loginUserController
+);
 // working on the blog model
 
 router.get("/", newBlogController.getHomePage);

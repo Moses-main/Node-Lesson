@@ -1,7 +1,11 @@
 module.exports = (req, res) => {
-  res.render("create");
+  if (req.sessionID) {
+    return res.render("create");
+  }
+  res.redirect("/auth/login");
 };
 
+// const BlogPost = require("../models/posts");
 // module.exports = (req, res) => {
 //   let image = req.files.image;
 //   image.mv(
