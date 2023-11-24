@@ -83,6 +83,8 @@ app.get("/auth/login", redirectIfAuthenticatedMiddleware, loginController);
 app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController);
 app.get("/dashboard", dashboardController);
 app.get("/auth/logout", logoutController);
+app.use((req, res) => res.render("notfound")); // used to render 404 page
+
 // Use the redirect route
 app.post(
   "/users/login",
