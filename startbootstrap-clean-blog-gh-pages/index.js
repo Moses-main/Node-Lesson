@@ -4,6 +4,8 @@ const router = express.Router();
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+// const cookieParser = require("cookie-parser");
+
 // const validateMiddleware = require("./middleware/validationMiddleware");
 const expressSession = require("express-session");
 const routes = require("./routes");
@@ -25,20 +27,34 @@ const dashboardController = require("./controllers/dashboard");
 const authMiddleware = require("./middleware/authMiddleware");
 // The new blogController
 const redirectIfAuthenticatedMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
-
+const logoutController = require("./controllers/logout");
 const newBlogController = require("./controllers/blogController");
 // Middleware for my apps
+
+global.loggedIn = null;
+app.use("*", (req, res, next) => {
+  // loggedIn = req.sessionID;
+  loggedIn = res.cookie("signupCookie", "userToken", {
+    maxAge: 3600000,
+    httpOnly: true,
+  });
+  next();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+// app.use(cookieParser());
 app.use(
   expressSession({
+    name: "sessionID",
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: true },
   })
 );
+
 app.set("view engine", "ejs"); // let express use the ejs for templating engine
 //  Custom middleware
 const customMiddleware = (req, res, next) => {
@@ -66,6 +82,7 @@ app.get("/", homeController);
 app.get("/auth/login", redirectIfAuthenticatedMiddleware, loginController);
 app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController);
 app.get("/dashboard", dashboardController);
+app.get("/auth/logout", logoutController);
 // Use the redirect route
 app.post(
   "/users/login",
