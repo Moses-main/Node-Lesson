@@ -35,7 +35,7 @@ global.loggedIn = null;
 app.use("*", (req, res, next) => {
   // loggedIn = req.sessionID;
   loggedIn = res.cookie("signupCookie", "userToken", {
-    maxAge: 3600000,
+    maxAge: 36000,
     httpOnly: true,
   });
   next();

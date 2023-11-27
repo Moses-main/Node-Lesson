@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const dbURL = "mongodb://localhost/App";
+const uniqueValidator = require("mongoose-unique-validator");
 
 // connecting to the database
 mongoose.connect(dbURL);
@@ -17,6 +18,8 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+userSchema.plugin(uniqueValidator);
 
 // middleware to hash the password before saving the user
 userSchema.pre("save", async function (next) {
