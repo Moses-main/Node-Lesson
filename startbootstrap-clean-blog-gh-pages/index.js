@@ -4,8 +4,10 @@ const router = express.Router();
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+// const flash = require("connect-flash");
 // const cookieParser = require("cookie-parser");
-
+// const flash = require("express-flash");
 // const validateMiddleware = require("./middleware/validationMiddleware");
 const expressSession = require("express-session");
 const routes = require("./routes");
@@ -23,13 +25,16 @@ const loginController = require("./controllers/login");
 const userController = require("./controllers/storeUser"); // load route for storing controllers
 const loginUserController = require("./controllers/loginUser"); // load route for storing
 const dashboardController = require("./controllers/dashboard");
-// ,mddile ware
 const authMiddleware = require("./middleware/authMiddleware");
-// The new blogController
 const redirectIfAuthenticatedMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
 const logoutController = require("./controllers/logout");
 const newBlogController = require("./controllers/blogController");
-// Middleware for my apps
+
+// IMPORTING THE FLASH PACKAGE FROM EXPRESS
+const flash = require("connect-flash");
+// app.use(flash());
+
+//Registering Middleware for my apps
 
 global.loggedIn = null;
 app.use("*", (req, res, next) => {
@@ -41,10 +46,14 @@ app.use("*", (req, res, next) => {
   next();
 });
 
+app.use(flash()); // app.use(errorHandlerMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-// app.use(cookieParser());
+app.use((error, req, res, next) => {
+  res.render("register", { error: error.message });
+});
+
 app.use(
   expressSession({
     name: "sessionID",
@@ -83,19 +92,13 @@ app.get("/auth/login", redirectIfAuthenticatedMiddleware, loginController);
 app.get("/auth/register", redirectIfAuthenticatedMiddleware, newUserController);
 app.get("/dashboard", dashboardController);
 app.get("/auth/logout", logoutController);
-app.use((req, res) => res.render("notfound")); // used to render 404 page
-
-// Use the redirect route
-app.post(
-  "/users/login",
-  redirectIfAuthenticatedMiddleware,
-  loginUserController
-);
-// working on the blog model
+// app.use((req, res) => res.render("notfound")); // used to render 404 page
 
 router.get("/", newBlogController.getHomePage);
+
 // router.post("/create_post", newBlogController.createPost);
 module.exports = router;
+
 app.listen(4000, () => {
   console.log("listening on port 4000");
 });
