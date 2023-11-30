@@ -1,7 +1,17 @@
 module.exports = (req, res) => {
-  req.flash("error", error.message);
-  // Render the message.ejs file with the message
-  // res.render("register", { error: message });
-  res.render("register", { error: error.message });
-  // res.render("register");
+  var username = "";
+  var password = "";
+  const data = req.flash("data")[0];
+
+  if (typeof data != "undefined") {
+    username = data.username;
+    password = data.password;
+  }
+
+  res.render("register", {
+    errors: req.flash("validationErrors"),
+    username: username,
+    password: password,
+  });
+  console.log(data);
 };

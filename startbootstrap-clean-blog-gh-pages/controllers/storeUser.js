@@ -10,7 +10,7 @@ const path = require("path");
 router.post(
   "/signup",
 
-  async (req, res, next) => {
+  async (req, res) => {
     try {
       const { username, password } = req.body;
       // check if the user already exits in the database
@@ -18,8 +18,12 @@ router.post(
 
       if (exitingUser) {
         //User already exits
+        // console.log("Username already exists");
+        const message = "Username already taken. Please try another";
+        const validationErrors = req.flash("message", message);
+
         res.render("register", {
-          errorMessage: "Username already taken. Please try another",
+          validationErrors: "Username already taken",
         });
         return;
       }
@@ -29,15 +33,10 @@ router.post(
       // redirect to log in page
       res.redirect("/auth/login");
     } catch (error) {
-      req.flash("error", error.message);
-
-      // Render the message.ejs file with the message
-      // res.render("register", { message: message });
-      res.redirect("/register"); // redirect to register page
-      // res.render("register", {
-      //   messages: req.flash("error"),
-      // });
-      next();
+      const validationErrors = error.message;
+      req.flash("validationErrors", validationErrors);
+      // req.flash("data", req.body);
+      res.render("register", { error: error.message });
     }
   }
 );
