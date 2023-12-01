@@ -32,7 +32,13 @@
           <p class="col-md-10 col-lg-8 col-xl-7">
             <h1 class="row gx-4 gx-lg-5 justify-content-center">
               Login to Account</h1>
-            <!-- Register to get access to the page -->
+
+            <!-- Message feedback -->
+            <% if (locals.error) { %>
+              <div class="alert alert-danger">
+                <%= error %> <!-- display the error message -->
+              </div>
+            <% } %>
           </p>
           <div class="container px-5 my-5">
             <!-- Manually created form for the testing of the 

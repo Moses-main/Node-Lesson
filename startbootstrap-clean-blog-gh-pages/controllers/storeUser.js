@@ -17,25 +17,22 @@ router.post(
       const exitingUser = await User.findOne({ username });
 
       if (exitingUser) {
-        //User already exits
-        // console.log("Username already exists");
-        const message = "Username already taken. Please try another";
-        const validationErrors = req.flash("message", message);
-
         res.render("register", {
-          validationErrors: "Username already taken",
+          // successMsg: req.flash("success"),
+          error: "Username already taken. Please try another",
         });
         return;
       }
+
       const newUser = new User({ username, password });
       await newUser.save();
 
-      // redirect to log in page
       res.redirect("/auth/login");
     } catch (error) {
-      const validationErrors = error.message;
-      req.flash("validationErrors", validationErrors);
+      // const validationErrors = error.message;
+      // req.flash("validationErrors", validationErrors);
       // req.flash("data", req.body);
+      // res.render("register", { error: error.message });
       res.render("register", { error: error.message });
     }
   }

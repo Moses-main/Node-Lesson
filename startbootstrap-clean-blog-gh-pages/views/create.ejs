@@ -25,11 +25,19 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
-            <p>Start by creating your own blog. Make it your own way</p>
+            <h5>Start by creating your own blog. Make it your own way</h5>
             <div class="container px-5 my-5">
               <!-- Manually created form for the testing of the 
               POST AND GET request for the post and blog -->
               <form id="postForm" action="/create_post" method="POST">
+                <!-- display messages from the backend of the app  -->
+                <% if(locals.error) { %>
+                <div class="alert alert-danger">
+                  <%= error %>
+                  <!-- display the error message -->
+                </div>
+                <% } %>
+
                 <div class="form-floating mb-3">
                   <input
                     class="form-control"
@@ -47,6 +55,8 @@
                     Title is required.
                   </div>
                 </div>
+
+                <!-- AREA FOR THE BODY OF THE BLOG -->
                 <div class="form-floating mb-3">
                   <textarea
                     class="form-control"
@@ -73,6 +83,26 @@
                     Error sending message!
                   </div>
                 </div>
+                <!--  AREA FOR THE IMAGE -->
+
+                <div class="form-floating mb-3">
+                  <input
+                    class="form-control"
+                    id="image"
+                    type="file"
+                    placeholder="image"
+                    data-sb-validations="required"
+                    name="image"
+                  />
+                  <label for="image">Image</label>
+                  <div
+                    class="invalid-feedback"
+                    data-sb-feedback="image:required"
+                  >
+                    Title is required.
+                  </div>
+                </div>
+
                 <div class="d-grid">
                   <button
                     class="btn btn-primary btn-lg"
