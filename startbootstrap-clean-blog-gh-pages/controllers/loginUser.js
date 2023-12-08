@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 router.post("/users/login", async (req, res) => {
   try {
@@ -12,44 +14,61 @@ router.post("/users/login", async (req, res) => {
       // compare the hashed password
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (isPasswordValid) {
-        req.sessionID = user._id; // the session ID gotten from the
-        // database user id
+        // Create JWTs
+        const accessToken = jwt.sign(
+          {
+            username: username,
+          },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: "5m" }
+        );
+        const refreshToken = jwt.sign(
+          {
+            username: username,
+          },
+          process.env.REFRESH_TOKEN_SECRET,
+          { expiresIn: "1d" }
+        );
+        const currentUser = await User.findOne({ username: username });
+        if (!currentUser) {
+          error = "User not found";
+          res.render("login", { error: error });
+        }
 
-        // successfully logged in
-        console.log(req.sessionID);
-        // res.status(200).json({ message: "Successfully Logged In" });
-        res.redirect("/dashboard");
+        //GETTING THE OTHER USERS IN THE DATABASE EXCEPT FROM THE CURRENT USER THAT IS LOGGED IN
+
+        const otherUsers = await User.find({
+          username: { $ne: currentUser },
+        });
+
+        // Giving the current user an access token
+        // that would be retrieved on the logout section
+        global.loggedIn = null;
+        const activeUser = { ...currentUser, refreshToken }; // the three dot serves as a way to add or merge files together using an array of strings in the above example
+
+        res.cookie("jwt", refreshToken, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+        });
+        loggedIn = activeUser.refreshToken;
+        res.redirect("/home");
       } else {
-        // failed login (incorrect password)
-        // res.render("login");
-        // res.json(errorMessage);
-        // res.render("register", {
-        //   errorMessage: "Incorrect Password",
-        // });
-        // const error = "Error: Incorrect Password.";
-        // console.log("Error: Incorrect Password.");
-        res.status(201).json({ message: "Incorrect Password, Try again" });
+        const error = "Error: Incorrect Password.";
+        res.render("login", { error: error });
       }
       if (password === undefined || password === null) {
-        res.status(200).json({ message: "Please enter password" });
+        const error = "Error: Please enter password.";
+        res.render("login", { error: error });
       }
     } else {
-      //failed login (user not found)
-      // res.render("login", {
-      //   errorMessage: "Username not found, Check the details and try again",
-      // });
-      // const error = "Username not found";
-
-      // res.render("login", { error: error });
-      // console.log("Error: Username not found.");
-      res.status(201).json({
-        message: "username not found, Check the details and try again",
-      });
-      // res.render("login");
+      const error =
+        "Error: username not found, Check the details and try again.";
+      res.render("login", { error: error });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+
+    res.render("login", { error: error });
   }
 });
 

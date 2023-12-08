@@ -21,10 +21,9 @@ const BlogPostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imgContent: {
-    type: String,
-    required: false,
-  },
+  // imgUrl: {
+  //   type: String,
+  // },
   timestamp: { type: Date, default: Date.now },
 });
 

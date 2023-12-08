@@ -11,7 +11,8 @@ exports.getHomePage = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-  const { postTitle, postContent, imgContent } = req.body;
+  const { postTitle, postContent } = req.body;
+
   if (!postContent && !postTitle) {
     return res.render("create", { error: "No Title and Content found" });
   } else if (!postTitle && postContent) {
@@ -32,20 +33,23 @@ exports.createPost = async (req, res) => {
             "' already exists'",
         });
       }
+      // for saving the image sent to the database
+      // const imgUrl = req.file.path;
+
       const newBlog = new BlogPost({
         postTitle: postTitle,
         postContent: postContent,
-        imgContent: imgContent,
+        // imgUrl: imgUrl,
       });
 
-      if (req.sessionID) {
+      if (req.cookies?.jwt) {
         await newBlog.save();
         const blogs = await BlogPost.find({});
         res.render("blogPage", { blogs });
 
         // res.json(blogs);
       } else {
-        return res.status(200).json({ message: "Session Not Known" });
+        return res.status(200).json({ message: "Cookie Not Known" });
       }
     } catch (error) {
       return res.render("create", {
