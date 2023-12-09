@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 router.post("/users/login", async (req, res) => {
+  global.loggedIn = null;
+
   try {
     const { username, password } = req.body;
     // check if the user exits in the database
@@ -20,14 +22,14 @@ router.post("/users/login", async (req, res) => {
             username: username,
           },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "5m" }
+          { expiresIn: "5s" }
         );
         const refreshToken = jwt.sign(
           {
             username: username,
           },
           process.env.REFRESH_TOKEN_SECRET,
-          { expiresIn: "1d" }
+          { expiresIn: "1m" }
         );
         const currentUser = await User.findOne({ username: username });
         if (!currentUser) {
@@ -43,7 +45,6 @@ router.post("/users/login", async (req, res) => {
 
         // Giving the current user an access token
         // that would be retrieved on the logout section
-        global.loggedIn = null;
         const activeUser = { ...currentUser, refreshToken }; // the three dot serves as a way to add or merge files together using an array of strings in the above example
 
         res.cookie("jwt", refreshToken, {

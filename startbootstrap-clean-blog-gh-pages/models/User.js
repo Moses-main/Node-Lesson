@@ -6,7 +6,6 @@ const uniqueValidator = require("mongoose-unique-validator");
 // connecting to the database
 mongoose.connect(dbURL);
 mongoose.connection;
-// connection.on;
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -50,5 +49,5 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   }
 };
 
-const formModel = mongoose.model("newUsers", userSchema);
+const formModel = mongoose.model("Users", userSchema);
 module.exports = formModel;

@@ -7,10 +7,9 @@ mongoose.connect(dbURL);
 mongoose.connection;
 
 const BlogPostSchema = new mongoose.Schema({
-  userid: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: false,
   },
   postTitle: {
     type: String,
@@ -21,9 +20,6 @@ const BlogPostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // imgUrl: {
-  //   type: String,
-  // },
   timestamp: { type: Date, default: Date.now },
 });
 
