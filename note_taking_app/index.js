@@ -4,6 +4,8 @@ const express = require("express");
 const app = express();
 const port = 3500;
 const path = require("path");
+const hbs = require("hbs");
+// const { title } = require("process");
 // const user = users.find((user) => user.name === "Moses");
 const url =
   "http://api.weatherapi.com/v1/current.json?key=bcd9930a6155480dafb10640231412&q=London&aqi=no";
@@ -24,12 +26,12 @@ app.use(urlencoded(json));
 //     // Handle any errors from the API call
 //     console.error("Error fetching weather data:", error);
 //   });
-
+app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "../public")));
 
 // LET THE URL BE HERE
 app.get("/", (req, res) => {
-  res.send("Hello express");
+  res.render("index", { title: "Note Taking App", name: "Moses" });
 });
 
 app.get("/weather", (req, res) => {
@@ -38,5 +40,7 @@ app.get("/weather", (req, res) => {
     location: "Nigeria",
   });
 });
+
+// app.get();
 
 app.listen(port, () => console.log("listening on port " + port));
